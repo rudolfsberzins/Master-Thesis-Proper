@@ -44,9 +44,9 @@ def main():
 
     full_gen_real.update(gen_additions)
 
-    pickle.dump(full_strict_real, open('Results/Full_Strict_Real_Human.pkl', 'wb'))
-    pickle.dump(full_gen_real, open('Results/Full_Gen_Real_Human.pkl', 'wb'))
-    pickle.dump(full_be_real, open('Results/Full_Be_Real_Human.pkl', 'wb'))
+    pickle.dump(full_strict_real, open('Results/human_mentions_strict_real.pkl', 'wb'))
+    pickle.dump(full_gen_real, open('Results/human_mentions_gen_real.pkl', 'wb'))
+    pickle.dump(full_be_real, open('Results/human_mentions_be_real.pkl', 'wb'))
 
 if __name__ == '__main__':
     main()
