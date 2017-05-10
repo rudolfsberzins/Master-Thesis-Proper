@@ -78,7 +78,8 @@ def open_interactions(interactions_name):
 
     mega_dict = {}
     for _, row in interactions_file.iterrows():
-        mega_dict.setdefault(row['item_id_a'], {}).setdefault(row['item_id_b'], []).append(row['mode'])
+        if row['score'] > 200:
+            mega_dict.setdefault(row['item_id_a'], {}).setdefault(row['item_id_b'], []).append(row['mode'])
 
     return mega_dict
     # return interactions_file
