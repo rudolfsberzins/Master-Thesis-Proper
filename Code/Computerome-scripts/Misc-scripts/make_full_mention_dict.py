@@ -11,7 +11,7 @@ def main():
 
     full_mention_dict = {}
 
-    for file in glob.glob('/data/*_mentions'):
+    for file in glob.glob('data/*_mentions'):
         mentions_file = pd.read_csv(file, sep='\t',
                                     names=["PMID", "Paragraph", "Sentence", "Char_Start",
                                            "Char_End", "Entity_name", "TaxID", "SerialNo"])
