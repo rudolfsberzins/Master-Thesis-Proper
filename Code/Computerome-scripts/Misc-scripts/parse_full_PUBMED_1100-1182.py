@@ -22,8 +22,11 @@ while decrement:
 
 def yield_corpus_names(med_folder):
     """Produces MEDLINE abstract gzip filenames"""
-    for filename in glob.glob(os.path.join(med_folder, '*.tsv.gz')):
-        yield filename
+
+    for i in range(1100, 1183):
+        file_path = 'medline16n'+str(i).zfill(4)+'.tsv.gz'
+        for filename in glob.glob(os.path.join(med_folder, file_path)):
+            yield filename
 
 def yield_abstract_corpus(med_fold):
     """Yields a single abstract line"""
@@ -54,7 +57,7 @@ def main():
         except IndexError:
             print ('Got Index Error with: ', row[0], '! Passing')
 
-    pickle.dump(full_PubMed_dict, open('Results/full_PubMed_dict.pkl', 'wb'))
+    pickle.dump(full_PubMed_dict, open('Results/full_PubMed_dict_1100-1182.pkl', 'wb'))
 
 if __name__ == '__main__':
     main()
