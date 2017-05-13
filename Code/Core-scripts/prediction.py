@@ -81,11 +81,11 @@ def make_w2v_model(dataset, name_for_model, model_features=None):
         context = model_features[3] #6  # Context window size
         downsampling = model_features[4] #0.001  # Downsample setting for frequent words
     else:
-        num_features = 300  # Word vector dimensionality
-        min_word_count = 5  # Minimum word count
+        num_features = 600  # Word vector dimensionality
+        min_word_count = 6  # Minimum word count
         num_workers = 4  # Number of threads to run in parallel
         context = 6  # Context window size
-        downsampling = 0.001  # Downsample setting for frequent words
+        downsampling = 0.000001  # Downsample setting for frequent words
 
     print('Training Word2Vec Model')
 
