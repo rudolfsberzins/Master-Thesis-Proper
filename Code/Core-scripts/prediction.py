@@ -47,10 +47,10 @@ def manual_train_test_split(dataset, name_for_sets, random_state=8,
 
     labels_train, labels_test = fr.produce_labels(train, test)
 
-    pickle.dump(train, open('Results/' + name_for_sets + '_train_data.pkl', 'wb'))
-    pickle.dump(test, open('Results/' + name_for_sets + '_test_data.pkl', 'wb'))
-    pickle.dump(labels_train, open('Results/' + name_for_sets + '_train_labels.pkl', 'wb'))
-    pickle.dump(labels_test, open('Results/' + name_for_sets + '_test_labels.pkl', 'wb'))
+    pickle.dump(train, open('../../Results/' + name_for_sets + '_train_data.pkl', 'wb'))
+    pickle.dump(test, open('../../Results/' + name_for_sets + '_test_data.pkl', 'wb'))
+    pickle.dump(labels_train, open('../../Results/' + name_for_sets + '_train_labels.pkl', 'wb'))
+    pickle.dump(labels_test, open('../../Results/' + name_for_sets + '_test_labels.pkl', 'wb'))
 
     return train, test, labels_train, labels_test
 
@@ -81,11 +81,11 @@ def make_w2v_model(dataset, name_for_model, model_features=None):
         context = model_features[3] #6  # Context window size
         downsampling = model_features[4] #0.001  # Downsample setting for frequent words
     else:
-        num_features = 300  # Word vector dimensionality
-        min_word_count = 5  # Minimum word count
+        num_features = 600  # Word vector dimensionality
+        min_word_count = 6  # Minimum word count
         num_workers = 4  # Number of threads to run in parallel
         context = 6  # Context window size
-        downsampling = 0.001  # Downsample setting for frequent words
+        downsampling = 0.000001  # Downsample setting for frequent words
 
     print('Training Word2Vec Model')
 
@@ -97,7 +97,7 @@ def make_w2v_model(dataset, name_for_model, model_features=None):
     # init_sims will make the model much more memory-efficient.
     model.init_sims(replace=True)
 
-    model_name = 'Results/' + name_for_model + '_model'
+    model_name = '../../Results/' + name_for_model + '_model'
 
     model.save(model_name)
 
