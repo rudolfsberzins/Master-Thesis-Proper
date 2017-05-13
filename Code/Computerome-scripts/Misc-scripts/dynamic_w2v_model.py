@@ -1,5 +1,3 @@
-import sys
-sys.path.append('../../Core-scripts')
 import file_readers as fr
 import pickle
 import logging
