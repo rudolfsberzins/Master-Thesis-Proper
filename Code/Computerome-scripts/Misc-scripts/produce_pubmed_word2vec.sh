@@ -29,7 +29,7 @@ module load tools
 module load tools anaconda3/2.2.0
 
 python dynamic_w2v_model.py 'Results/full_PubMed_dict_1-99.pkl' 'initial_model_1-99'
-python update_word2vec_model.py 'Results/initail_model_1-99' 'Results/full_PubMed_dict_100-199.pkl' 'updated_model_100-199'
+python update_word2vec_model.py 'Results/initial_model_1-99' 'Results/full_PubMed_dict_100-199.pkl' 'updated_model_100-199'
 python update_word2vec_model.py 'Results/updated_model_100-199' 'Results/full_PubMed_dict_200-299.pkl' 'updated_model_200-299'
 python update_word2vec_model.py 'Results/updated_model_200-299' 'Results/full_PubMed_dict_300-399.pkl' 'updated_model_300-399'
 python update_word2vec_model.py 'Results/updated_model_300-399' 'Results/full_PubMed_dict_400-499.pkl' 'updated_model_400-499'
