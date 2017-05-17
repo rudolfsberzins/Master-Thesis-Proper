@@ -28,6 +28,6 @@ module purge
 module load tools
 module load tools anaconda3/2.2.0
 
-python dynamic_word2vec_model.py 'Results/mouse_mentions_strict_real.pkl' 'mouse_strict_w2v_model'
-python dynamic_word2vec_model.py 'Results/mouse_mentions_gen_real.pkl' 'mouse_gen_w2v_model'
-python dynamic_word2vec_model.py 'Results/mouse_mentions_be_real.pkl' 'mouse_be_w2v_model'
+python dynamic_w2v_model.py 'Results/mouse_mentions_strict_real.pkl' 'mouse_strict_w2v_model'
+python dynamic_w2v_model.py 'Results/mouse_mentions_gen_real.pkl' 'mouse_gen_w2v_model'
+python dynamic_w2v_model.py 'Results/mouse_mentions_be_real.pkl' 'mouse_be_w2v_model'
