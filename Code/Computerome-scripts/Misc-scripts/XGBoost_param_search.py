@@ -77,9 +77,9 @@ def main():
         strict_list_BE_dims_param = [w2v_train_vecs, w2v_test_vecs,
                                      train_labels, test_labels]
 
-        pickle.dump(strict_list_SR_dims_param, open('Results/yeast_strict_list_SR_dims_param_'+str(seed)+'_results_list.pkl', 'wb'))
-        pickle.dump(strict_list_GEN_dims_param, open('Results/yeast_strict_list_GEN_dims_param_'+str(seed)+'_results_list.pkl', 'wb'))
-        pickle.dump(strict_list_BE_dims_param, open('Results/yeast_strict_list_BE_dims_param_'+str(seed)+'_results_list.pkl', 'wb'))
+        pickle.dump(strict_list_SR_dims_param, open('Results/yeast_strict_list_SR_'+str(seed)+'_results_list.pkl', 'wb'))
+        pickle.dump(strict_list_GEN_dims_param, open('Results/yeast_strict_list_GEN_'+str(seed)+'_results_list.pkl', 'wb'))
+        pickle.dump(strict_list_BE_dims_param, open('Results/yeast_strict_list_BE_'+str(seed)+'_results_list.pkl', 'wb'))
 
     print('\nFirst XGB run\n')
     xgb1 = XGBClassifier(learning_rate=0.1,
