@@ -28,6 +28,5 @@ module purge
 module load tools
 module load tools anaconda3/2.2.0
 
-python XGBoost_Tuning.py 2895 SR
 python XGBoost_Tuning.py 2895 GEN
 python XGBoost_Tuning.py 2895 BE
