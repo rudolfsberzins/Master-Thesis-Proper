@@ -36,6 +36,8 @@ To produce the initial datasets do the following. I will use computerome_drosoph
         
 'full_sen_set' (default = false) designates wheter to make only the STRICT version of the data (true PPI pairs only) or make all possible models (STRICT, GENERAL (or gen) and FULL (named 'be')).
 
+**IMPORTANT - You might want to comment out line 41 and uncomment line 42 in _parse_and_perpare.py_. This is because I hardcoded the path to Medline folder in my computerome folder and it ignores the first item of the 'files' list.**
+
 The script above will produce 6 'pickle' files. Read more about 'pickle' files here - https://docs.python.org/3.6/library/pickle.html
 
 After the initial datasets are procuded, one can use functions in prediction.py to perform word2vec modeling and prediction with XGBoost. There are three main functions that could be of use - 
