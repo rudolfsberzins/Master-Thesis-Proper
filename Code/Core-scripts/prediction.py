@@ -12,7 +12,7 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.feature_selection import SelectFromModel
 
 def manual_train_test_split(dataset, name_for_sets, random_state=8,
-                            test_set_prop=0.3):
+                            test_set_prop=0.1):
     """Split given dataset so no two interactions occur both in Test and in Train sets
     The code will try to get the around the proportion given by test_set_prop
     where train set will be 1-test_set_prop.
@@ -91,7 +91,7 @@ def make_w2v_model(dataset, name_for_model, model_features=None):
 
     model = word2vec.Word2Vec(sentences, workers=num_workers, \
             size=num_features, min_count=min_word_count, \
-            window=context, sample=downsampling)
+            window=context, sample=downsampling, sg=1, hs=1)
 
     # If you don't plan to train the model any further, calling
     # init_sims will make the model much more memory-efficient.
