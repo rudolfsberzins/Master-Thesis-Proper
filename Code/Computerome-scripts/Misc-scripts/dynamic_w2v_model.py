@@ -20,17 +20,16 @@ def main():
     logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',\
     level=logging.INFO)
 
-    num_features = 600  # Word vector dimensionality
-    min_word_count = 6  # Minimum word count
-    num_workers = 4  # Number of threads to run in parallel
-    context = 7  # Context window size
-    downsampling = 0.0001  # Downsample setting for frequent words
+    num_features = 800  # Word vector dimensionality
+    min_word_count = 8  # Minimum word count
+    context = 8  # Context window size
+    downsampling = 0.001  # Downsample setting for frequent words
 
     print('Training Word2Vec Model')
 
-    model = word2vec.Word2Vec([i for i in sentence_yielder(sentence_path)], workers=num_workers,
+    model = word2vec.Word2Vec([i for i in sentence_yielder(sentence_path)],
                               size=num_features, min_count=min_word_count, \
-                              window=context, sample=downsampling)
+                              window=context, sample=downsampling, sg=1, hs=1)
 
     model.init_sims(replace=True)
 
