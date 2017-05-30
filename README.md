@@ -1,6 +1,18 @@
 # Master-Thesis-Proper
 Repository to store code for my Master Thesis
 
+# Dependencies
+    pickleshare==0.7.4 #Known as pickle
+    nltk==3.2.2
+    pandas==0.19.2
+    numpy==1.12.0
+    scipy==0.18.1
+    scikit-learn==0.18.1
+    xgboost==0.6a2
+    gensim==1.0.1
+    
+    
+
 # How to run
 The code only works in Python 3.x. Running in Python 2.x is not recommened and might result in failiures 
 
@@ -36,6 +48,15 @@ To produce the initial datasets do the following. I will use computerome_drosoph
         
 'full_sen_set' (default = false) designates wheter to make only the STRICT version of the data (true PPI pairs only) or make all possible models (STRICT, GENERAL (or gen) and FULL (named 'be')).
 
+STRICT refers to a subset of the FULL dataset where only sentences with 2 protein mentions are included.
+GENERAL refers to a subset of the FULL dataset where sentences with 2 or more protein mentions are included.
+FULL refers to the starting mention dataset, but it is converted to a format that is easier to work with. Includes sentences with at least 1 PPI mention.
+
+The dataset hiearchy is as follows:
+FULL includes sentences from GENERAL and STRICT
+GENERAL includes sentences from STRICT
+STRICT is individual
+
 **IMPORTANT - You might want to comment out line 41 and uncomment line 42 in _parse_and_perpare.py_. This is because I hardcoded the path to Medline folder in my computerome folder and it ignores the first item of the 'files' list.**
 
 The script above will produce 6 'pickle' files. Read more about 'pickle' files here - https://docs.python.org/3.6/library/pickle.html
@@ -52,8 +73,6 @@ After the initial datasets are procuded, one can use functions in prediction.py 
     
     pred.XGB_classifier(_parameters_) 
     #Performs classification using XGBoost, outputs the error and class porbabilites
-    
-**_NOTE_ as of 27th of May, 2017, there are still some parameters for XGBoost classifier that are being tuned, so the version right now might not give, the best performance. This is subject to change!**
 
 -RB
 
