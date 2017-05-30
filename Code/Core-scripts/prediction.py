@@ -5,6 +5,7 @@ import numpy as np
 import xgboost as xgb
 import pandas as pd
 from sklearn.preprocessing import Imputer
+from xgboost.sklearn import XGBClassifier
 from nltk.tokenize import sent_tokenize
 from gensim.models import word2vec
 from sklearn.feature_extraction.text import CountVectorizer
@@ -81,11 +82,11 @@ def make_w2v_model(dataset, name_for_model, model_features=None):
         context = model_features[3] #6  # Context window size
         downsampling = model_features[4] #0.001  # Downsample setting for frequent words
     else:
-        num_features = 600  # Word vector dimensionality
-        min_word_count = 6  # Minimum word count
-        num_workers = 4  # Number of threads to run in parallel
-        context = 7  # Context window size
-        downsampling = 0.0001  # Downsample setting for frequent words
+        num_features = 800 #600  # Word vector dimensionality
+        min_word_count = 8 #6  # Minimum word count
+        num_workers = 4 #4  # Number of threads to run in parallel
+        context = 8 #7  # Context window size
+        downsampling = 0.001 #0.0001  # Downsample setting for frequent words
 
     print('Training Word2Vec Model')
 
@@ -230,7 +231,17 @@ def XGB_classifier(train_vector, test_vector,
         train_vector = model.transform(train_vector)
         test_vector = model.transform(test_vector)
 
-    xgb_clf = xgb.XGBClassifier()
+    xgb_clf = XGBClassifier(learning_rate=0.1,
+                            n_estimators=1000,
+                            max_depth=6,
+                            min_child_weight=1,
+                            gamma=0.2,
+                            subsample=0.6,
+                            colsample_bytree=0.8,
+                            reg_alpha=0.01,
+                            objective='binary:logistic',
+                            scale_pos_weight=1,
+                            seed=24)
     print ("\n Fitting XGBoost Model!")
     xgb_clf = xgb_clf.fit(train_vector, labels_train)
     print ("\n Making Predictions")
