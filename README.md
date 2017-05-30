@@ -53,8 +53,11 @@ GENERAL refers to a subset of the FULL dataset where sentences with 2 or more pr
 FULL refers to the starting mention dataset, but it is converted to a format that is easier to work with. Includes sentences with at least 1 PPI mention.
 
 The dataset hiearchy is as follows:
+
 FULL includes sentences from GENERAL and STRICT
+
 GENERAL includes sentences from STRICT
+
 STRICT is individual
 
 **IMPORTANT - You might want to comment out line 41 and uncomment line 42 in _parse_and_perpare.py_. This is because I hardcoded the path to Medline folder in my computerome folder and it ignores the first item of the 'files' list.**
