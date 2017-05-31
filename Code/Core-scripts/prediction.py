@@ -12,6 +12,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.feature_selection import SelectFromModel
 
+
 def manual_train_test_split(dataset, name_for_sets, random_state=8,
                             test_set_prop=0.1):
     """Split given dataset so no two interactions occur both in Test and in Train sets
@@ -96,7 +97,7 @@ def make_w2v_model(dataset, name_for_model, model_features=None):
 
     # If you don't plan to train the model any further, calling
     # init_sims will make the model much more memory-efficient.
-    model.init_sims(replace=True)
+    model.init_sims(replace=False)
 
     model_name = '../../Results/' + name_for_model + '_model'
 
@@ -250,7 +251,7 @@ def XGB_classifier(train_vector, test_vector,
     predictions = [round(val) for val in result]
     error = get_accuracy(predictions, labels_test)
 
-    return error, probs
+    return result, error, probs
 
 def get_accuracy(l_new, l_te):
     """Calculates the accuracy of predicted labels, based on the given labels
