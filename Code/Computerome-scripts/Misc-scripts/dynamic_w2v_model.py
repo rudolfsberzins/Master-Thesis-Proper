@@ -31,7 +31,7 @@ def main():
                               size=num_features, min_count=min_word_count, \
                               window=context, sample=downsampling, sg=1, hs=1)
 
-    model.init_sims(replace=True)
+    model.init_sims(replace=False)
 
     model_name = 'Results/' + name_model
 

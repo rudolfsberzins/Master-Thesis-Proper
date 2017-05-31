@@ -96,7 +96,7 @@ def make_w2v_model(dataset, name_for_model, model_features=None):
 
     # If you don't plan to train the model any further, calling
     # init_sims will make the model much more memory-efficient.
-    model.init_sims(replace=True)
+    model.init_sims(replace=False)
 
     model_name = '../../Results/' + name_for_model + '_model'
 
