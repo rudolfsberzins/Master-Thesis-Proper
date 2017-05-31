@@ -1,6 +1,3 @@
-import sys
-sys.path.insert(0, '../../Core-scripts/')
-
 from sys import argv
 import file_readers as fr
 import pickle
@@ -79,13 +76,17 @@ def iterator(lst):
 def main():
     _, folder_name, target_1, target_2, target_3, target_4 = argv
     names = [folder_name, target_1, target_2, target_3, target_4]
+    names_true = []
+    for i in names[1:]:
+        if i !='BLANK':
+            names_true.append(i)
 
     i_trigger = False
     h_trigger = False
 
     all_names = []
-    for i in range(1, 5):
-        z = itertools.combinations(iterator(names[1:]), i)
+    for i in range(1, len(names_true)+1):
+        z = itertools.combinations(iterator(names_true), i)
         for j in z:
             d = '_'.join(list(j))
             all_names.append(d)
@@ -101,7 +102,7 @@ def main():
         else:
             name_start = names[0]+'_'+splt[1]
 
-        print(name_start, name_target, i_trigger, h_trigger)
+        make_mergers(name_start, name_target, i_trigger, h_trigger)
 
         i_trigger = False
         h_trigger = False
