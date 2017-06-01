@@ -49,10 +49,10 @@ def manual_train_test_split(dataset, name_for_sets, random_state=8,
 
     labels_train, labels_test = fr.produce_labels(train, test)
 
-    pickle.dump(train, open('../../Results/' + name_for_sets + '_train_data.pkl', 'wb'))
-    pickle.dump(test, open('../../Results/' + name_for_sets + '_test_data.pkl', 'wb'))
-    pickle.dump(labels_train, open('../../Results/' + name_for_sets + '_train_labels.pkl', 'wb'))
-    pickle.dump(labels_test, open('../../Results/' + name_for_sets + '_test_labels.pkl', 'wb'))
+    pickle.dump(train, open('Results/' + name_for_sets + '_train_data.pkl', 'wb'))
+    pickle.dump(test, open('Results/' + name_for_sets + '_test_data.pkl', 'wb'))
+    pickle.dump(labels_train, open('Results/' + name_for_sets + '_train_labels.pkl', 'wb'))
+    pickle.dump(labels_test, open('Results/' + name_for_sets + '_test_labels.pkl', 'wb'))
 
     return train, test, labels_train, labels_test
 
