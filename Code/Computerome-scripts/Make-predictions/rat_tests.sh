@@ -3,10 +3,10 @@
 ### Account information
 #PBS -W group_list=pr_12345 -A pr_12345
 ### Job name (comment out the next line to get the name of the script used as the job name)
-#PBS -N rat_predictions
+#PBS -N rat_models
 ### Output files (comment out the next 2 lines to get the job name used instead)
-#PBS -e rat_predictions.err
-#PBS -o rat_predictions.log
+#PBS -e rat_models.err
+#PBS -o rat_models.log
 ### Only send mail when job is aborted or terminates abnormally
 #PBS -m n
 ### Number of nodes

@@ -3,10 +3,10 @@
 ### Account information
 #PBS -W group_list=pr_12345 -A pr_12345
 ### Job name (comment out the next line to get the name of the script used as the job name)
-#PBS -N yeast_models
+#PBS -N mouse_predictions
 ### Output files (comment out the next 2 lines to get the job name used instead)
-#PBS -e yeast_models.err
-#PBS -o yeast_models.log
+#PBS -e mouse_predictions.err
+#PBS -o mouse_predictions.log
 ### Only send mail when job is aborted or terminates abnormally
 #PBS -m n
 ### Number of nodes
@@ -28,4 +28,5 @@ module purge
 module load tools
 module load tools anaconda3/2.2.0
 
-python full_merger.py yeast rat mouse human BLANK
+python make_predictions.py Results/mouse_strict_w2v_model Results/mouse_gen_w2v_model Results/mouse_be_w2v_model Results/mouse_mentions_strict_real.pkl new_mouse_predictions
+
