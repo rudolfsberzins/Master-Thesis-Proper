@@ -1,7 +1,7 @@
 import pickle
 import prediction as pred
 from sys import argv
-from gensim import word2vec
+from gensim.models import word2vec
 from sklearn.metrics import roc_curve, auc
 
 def main():

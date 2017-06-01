@@ -198,7 +198,7 @@ def get_avg_feature_vecs(sentences, model, num_features):
     return sentence_feature_vecs
 
 
-def word_2_vec_feat_vecs(data_train, data_test, model, feature_count=300):
+def word_2_vec_feat_vecs(data_train, data_test, model, feature_count=800):
     """Produce Word 2 Vec Feature vectors"""
 
     clean_train_texts = [fr.sentence_to_wordlist(sen, remove_stopwords=True) for sen in data_train]
