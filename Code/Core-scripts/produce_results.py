@@ -132,3 +132,6 @@ def run(organism):
 def main():
     _, organism = argv
     run(organism)
+
+if __name__ == '__main__':
+    main()
