@@ -6,6 +6,7 @@ import glob
 import numpy as np
 from nltk.tokenize import sent_tokenize
 from gensim.models import word2vec
+import multiprocessing
 
 def sentence_yielder(path):
     for file in glob.glob(path):
