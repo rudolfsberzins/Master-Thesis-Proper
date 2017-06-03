@@ -59,7 +59,7 @@ def run(organism):
         w2v_train_vecs, w2v_val_vecs = pred.word_2_vec_feat_vecs(train_data,
                                                                  validation_data,
                                                                  w2v_strict,
-                                                                 feature_count=i)
+                                                                 feature_count=800)
 
         strict_list_SR = [w2v_train_vecs, w2v_val_vecs,
                           train_labels, validation_labels]
@@ -67,7 +67,7 @@ def run(organism):
         w2v_train_vecs, w2v_val_vecs = pred.word_2_vec_feat_vecs(train_data,
                                                                  validation_data,
                                                                  w2v_gen,
-                                                                 feature_count=i)
+                                                                 feature_count=800)
 
         strict_list_GEN = [w2v_train_vecs, w2v_val_vecs,
                            train_labels, validation_labels]
@@ -75,7 +75,7 @@ def run(organism):
         w2v_train_vecs, w2v_val_vecs = pred.word_2_vec_feat_vecs(train_data,
                                                                  validation_data,
                                                                  w2v_be,
-                                                                 feature_count=i)
+                                                                 feature_count=800)
 
         strict_list_BE = [w2v_train_vecs, w2v_val_vecs,
                           train_labels, validation_labels]
