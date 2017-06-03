@@ -1,7 +1,3 @@
-import sys
-
-sys.path.insert(1, '../Core-scripts')
-
 from parse_and_prepare import ProteinProteinInteractionClassifier as ppi
 import file_readers as fr
 import prediction as pred
@@ -249,6 +245,7 @@ def dims(parameters):
         single_max = np.max([np.max(auc_value_dict['SR_'+str(i+1)]),
                              np.max(auc_value_dict['GEN_'+str(i+1)]),
                              np.max(auc_value_dict['BE_'+str(i+1)])])
+        max_aucs[i+1] = single_max
     best_parameter = max(max_aucs.items(), key=operator.itemgetter(1))[0]*100
 
     return best_parameter
@@ -362,6 +359,7 @@ def word_count(parameters, best_dims):
         single_max = np.max([np.max(auc_value_dict['SR_'+str(i+1)]),
                              np.max(auc_value_dict['GEN_'+str(i+1)]),
                              np.max(auc_value_dict['BE_'+str(i+1)])])
+        max_aucs[i+1] = single_max
     best_parameter = max(max_aucs.items(), key=operator.itemgetter(1))[0]
 
     return best_parameter
@@ -476,6 +474,7 @@ def context_window(parameters, best_dims, best_word_count):
         single_max = np.max([np.max(auc_value_dict['SR_'+str(i+1)]),
                              np.max(auc_value_dict['GEN_'+str(i+1)]),
                              np.max(auc_value_dict['BE_'+str(i+1)])])
+        max_aucs[i+1] = single_max
     best_parameter = max(max_aucs.items(), key=operator.itemgetter(1))[0]
 
     return best_parameter
@@ -592,15 +591,10 @@ def downsmpl(parameters, best_dims, best_word_count, best_context_window):
         single_max = np.max([np.max(auc_value_dict['SR_'+str(i+1)]),
                              np.max(auc_value_dict['GEN_'+str(i+1)]),
                              np.max(auc_value_dict['BE_'+str(i+1)])])
+        max_aucs[i+1] = single_max
     best_parameter = max(max_aucs.items(), key=operator.itemgetter(1))[0]
 
     return best_parameter
-
-
-
-
-
-
 
 def main():
     dimensions = [100, 200, 300, 400, 500, 600, 700, 800, 900]
