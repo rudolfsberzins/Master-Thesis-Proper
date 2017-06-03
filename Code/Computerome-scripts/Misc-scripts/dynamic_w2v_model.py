@@ -21,15 +21,17 @@ def main():
     level=logging.INFO)
 
     num_features = 800  # Word vector dimensionality
-    min_word_count = 8  # Minimum word count
-    context = 8  # Context window size
+    min_word_count = 7  # Minimum word count
+    num_workers = multiprocessing.cpu_count()
+    context = 9  # Context window size
     downsampling = 0.001  # Downsample setting for frequent words
 
     print('Training Word2Vec Model')
 
     model = word2vec.Word2Vec([i for i in sentence_yielder(sentence_path)],
+                              workers = num_workers,
                               size=num_features, min_count=min_word_count, \
-                              window=context, sample=downsampling, sg=1, hs=1)
+                              window=context, sample=downsampling,)
 
     model.init_sims(replace=False)
 

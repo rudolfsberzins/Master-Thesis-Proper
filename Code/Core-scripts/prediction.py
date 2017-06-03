@@ -1,5 +1,6 @@
 import pickle
 import logging
+import multiprocessing
 import file_readers as fr
 import numpy as np
 import xgboost as xgb
@@ -11,6 +12,7 @@ from gensim.models import word2vec
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.feature_selection import SelectFromModel
+from sklearn import metrics
 
 
 def manual_train_test_split(dataset, name_for_sets, random_state=8,
@@ -84,16 +86,16 @@ def make_w2v_model(dataset, name_for_model, model_features=None):
         downsampling = model_features[4] #0.001  # Downsample setting for frequent words
     else:
         num_features = 800 #600  # Word vector dimensionality
-        min_word_count = 8 #6  # Minimum word count
-        num_workers = 4 #4  # Number of threads to run in parallel
-        context = 8 #7  # Context window size
+        min_word_count = 7 #6  # Minimum word count
+        num_workers = multiprocessing.cpu_count() #4  # Number of threads to run in parallel
+        context = 9 #7  # Context window size
         downsampling = 0.001 #0.0001  # Downsample setting for frequent words
 
     print('Training Word2Vec Model')
 
     model = word2vec.Word2Vec(sentences, workers=num_workers, \
             size=num_features, min_count=min_word_count, \
-            window=context, sample=downsampling, sg=1, hs=1)
+            window=context, sample=downsampling)
 
     # If you don't plan to train the model any further, calling
     # init_sims will make the model much more memory-efficient.
@@ -198,7 +200,7 @@ def get_avg_feature_vecs(sentences, model, num_features):
     return sentence_feature_vecs
 
 
-def word_2_vec_feat_vecs(data_train, data_test, model, feature_count=600):
+def word_2_vec_feat_vecs(data_train, data_test, model, feature_count=800):
     """Produce Word 2 Vec Feature vectors"""
 
     clean_train_texts = [fr.sentence_to_wordlist(sen, remove_stopwords=True) for sen in data_train]
@@ -220,38 +222,84 @@ def word_2_vec_feat_vecs(data_train, data_test, model, feature_count=600):
 
     return w2v_train_transf, w2v_test_transf
 
+def XGB_modelfit(alg, train_vecs, train_labels, test_vecs, test_labels, w2v_model_type, useTrainCV=True, cv_folds=5, feature_selection=False):
 
-def XGB_classifier(train_vector, test_vector,
-                   labels_train, labels_test,
-                   feature_selection=False):
-    """Perform XGB Classification"""
     if feature_selection:
-        clf = ExtraTreesClassifier(n_estimators=100)
-        clf = clf.fit(train_vector, labels_train)
+        clf = ExtraTreesClassifier(n_estimators=400)
+        clf = clf.fit(train_vecs, train_labels)
         model = SelectFromModel(clf, prefit=True)
-        train_vector = model.transform(train_vector)
-        test_vector = model.transform(test_vector)
+        train_vecs = model.transform(train_vecs)
+        test_vecs = model.transform(test_vecs)
 
-    xgb_clf = XGBClassifier(learning_rate=0.1,
-                            n_estimators=1000,
-                            max_depth=6,
-                            min_child_weight=1,
-                            gamma=0.2,
-                            subsample=0.6,
-                            colsample_bytree=0.8,
-                            reg_alpha=0.01,
-                            objective='binary:logistic',
-                            scale_pos_weight=1,
-                            seed=24)
-    print ("\n Fitting XGBoost Model!")
-    xgb_clf = xgb_clf.fit(train_vector, labels_train)
-    print ("\n Making Predictions")
-    result = xgb_clf.predict(test_vector)
-    probs = xgb_clf.predict_proba(test_vector)[:, 1]
-    predictions = [round(val) for val in result]
-    error = get_accuracy(predictions, labels_test)
+    if useTrainCV:
+        xgb_param = alg.get_xgb_params()
+        xgtrain = xgb.DMatrix(train_vecs,
+                              label=train_labels)
+        cvresult = xgb.cv(xgb_param,
+                          xgtrain,
+                          num_boost_round=alg.get_params()['n_estimators'],
+                          nfold=cv_folds,
+                          metrics='auc',
+                          early_stopping_rounds=50)
+        alg.set_params(n_estimators=cvresult.shape[0])
 
-    return result, error, probs
+    #fit the algorithm on the data
+    alg.fit(train_vecs, train_labels, eval_metric='auc')
+
+    #Predict training set:
+    test_predictions = alg.predict(test_vecs)
+    test_predprob = alg.predict_proba(test_vecs)[:, 1]
+
+    #Metrics
+    accuracy = metrics.accuracy_score(test_labels, test_predictions)
+    roc_auc = metrics.roc_auc_score(test_labels, test_predprob)
+    class_report = metrics.classification_report(test_labels, test_predictions)
+
+    #Print Model report:
+    print(w2v_model_type, '\nModel Report')
+    print(w2v_model_type, 'Accuracy: %.4g' % accuracy)
+    print(w2v_model_type, 'AUC Score (Train): %f' % roc_auc)
+    print(w2v_model_type, 'Report \n', class_report)
+
+
+#     feat_imp = pd.Series(alg.booster().get_fscore()).sort_values(ascending=False)
+#     feat_imp.plot(kind='bar', title='Feature Importance')
+#     plt.ylabel('Feature Importance Score')
+
+    return accuracy, roc_auc, test_predictions, test_predprob, class_report
+
+
+# def XGB_classifier(train_vector, test_vector,
+#                    labels_train, labels_test,
+#                    feature_selection=False):
+#     """Perform XGB Classification"""
+#     if feature_selection:
+#         clf = ExtraTreesClassifier(n_estimators=800)
+#         clf = clf.fit(train_vector, labels_train)
+#         model = SelectFromModel(clf, prefit=True)
+#         train_vector = model.transform(train_vector)
+#         test_vector = model.transform(test_vector)
+
+#     xgb_clf = XGBClassifier(learning_rate=0.1,
+#                             n_estimators=1000,
+#                             max_depth=6,
+#                             min_child_weight=1,
+#                             gamma=0.2,
+#                             subsample=0.6,
+#                             colsample_bytree=0.8,
+#                             reg_alpha=0.01,
+#                             objective='binary:logistic',
+#                             scale_pos_weight=1,
+#                             seed=24)
+#     print ("\n Fitting XGBoost Model!")
+#     xgb_clf = xgb_clf.fit(train_vector, labels_train)
+#     print ("\n Making Predictions")
+#     result = xgb_clf.predict(test_vector)
+#     probs = xgb_clf.predict_proba(test_vector)[:, 1]
+#     predictions = [round(val) for val in result]
+#     error = get_accuracy(predictions, labels_test)
+
+#     return result, error, probs
 
 def get_accuracy(l_new, l_te):
     """Calculates the accuracy of predicted labels, based on the given labels
