@@ -46,9 +46,9 @@ def run(organism):
     xgb_clf = XGBClassifier(seed=24)
     auc_values_full = []
     strict, gen, be = open_files(organism)
-    w2v_strict = pred.make_w2v_model(strict, 'models/'+organism+'_strict_'+str(i))
-    w2v_gen = pred.make_w2v_model(gen, 'models/'+organism+'_gen_'+str(i))
-    w2v_be = pred.make_w2v_model(be, 'models/'+organism+'_be_'+str(i))
+    w2v_strict = pred.make_w2v_model(strict, 'models/'+organism+'_strict_')
+    w2v_gen = pred.make_w2v_model(gen, 'models/'+organism+'_gen_')
+    w2v_be = pred.make_w2v_model(be, 'models/'+organism+'_be_')
     for seed in random_seeds:
         data_name = 'Results/train_test/'+organism+'_tr_te_split_'+str(seed)
         train_data = pickle.load(open(data_name + '_train_data.pkl', 'rb'))
@@ -80,9 +80,9 @@ def run(organism):
         strict_list_BE = [w2v_train_vecs, w2v_val_vecs,
                           train_labels, validation_labels]
 
-        pickle.dump(strict_list_SR, open('Results/result_list/'+organism+'_strict_list_SR_dims_param_'+str(i)+'_'+str(seed)+'_results_list.pkl', 'wb'))
-        pickle.dump(strict_list_GEN, open('Results/result_list/'+organism+'_strict_list_GEN_dims_param_'+str(i)+'_'+str(seed)+'_results_list.pkl', 'wb'))
-        pickle.dump(strict_list_BE, open('Results/result_list/'+organism+'_strict_list_BE_dims_param_'+str(i)+'_'+str(seed)+'_results_list.pkl', 'wb'))
+        pickle.dump(strict_list_SR, open('Results/result_list/'+organism+'_strict_list_SR_'+str(seed)+'_results_list.pkl', 'wb'))
+        pickle.dump(strict_list_GEN, open('Results/result_list/'+organism+'_strict_list_GEN_'+str(seed)+'_results_list.pkl', 'wb'))
+        pickle.dump(strict_list_BE, open('Results/result_list/'+organism+'_strict_list_BE_'+str(seed)+'_results_list.pkl', 'wb'))
 
         strict_final_list = [strict_list_SR,
                              strict_list_GEN,
