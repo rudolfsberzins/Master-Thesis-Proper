@@ -26,7 +26,8 @@ def full_merger(model_path, sen_pkl_path, model_name):
     model.build_vocab([i for i in sentence_yielder(sen_pkl_path)], update=True)
 
     #Train model using new sentences
-    model.train([i for i in sentence_yielder(sen_pkl_path)])
+    model.train([i for i in sentence_yielder(sen_pkl_path)],
+                total_examples=sum([len(i) for i in sentence_yielder(sen_pkl_path)]))
 
     #'Kill' the model
     model.init_sims(replace=False)
