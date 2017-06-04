@@ -38,9 +38,9 @@ def full_merger(model_path, sen_pkl_path, model_name):
 
 def make_mergers(name_start, name_target, init_trigger=False, human_trigger=False):
     if init_trigger:
-        path_to_strict_model = 'Results/models/'+name_start+'__strict_model'
-        path_to_gen_model = 'Results/models/'+name_start+'__gen_model'
-        path_to_be_model = 'Results/models/'+name_start+'__be_model'
+        path_to_strict_model = 'Results/models/'+name_start+'_strict__model'
+        path_to_gen_model = 'Results/models/'+name_start+'_gen__model'
+        path_to_be_model = 'Results/models/'+name_start+'_be__model'
     else:
         path_to_strict_model = 'Results/models/'+name_start+'_full_merger_SR_model'
         path_to_gen_model = 'Results/models/'+name_start+'_full_merger_GEN_model'
