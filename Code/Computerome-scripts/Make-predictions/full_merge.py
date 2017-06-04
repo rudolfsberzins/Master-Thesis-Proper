@@ -1,5 +1,5 @@
 from sys import argv
-import file_readers as fr
+# import file_readers as fr
 import pickle
 import logging
 import glob
@@ -84,29 +84,40 @@ def main():
 
     i_trigger = False
     h_trigger = False
+    if target_1 == 'drosophila':
+        names_start = ['drosophila_mouse_rat', 'drosophila_human_rat',
+                       'drosophila_human_mouse', 'drosophila_human_mouse',
+                       'drosophila_human_mouse_rat']
+        names_target = ['yeast', 'yeast', 'yeast', 'rat', 'yeast']
 
-    all_names = []
-    for i in range(1, len(names_true)+1):
-        z = itertools.combinations(iterator(names_true), i)
-        for j in z:
-            d = '_'.join(list(j))
-            all_names.append(d)
+        for i,j in zip(names_start, names_target):
+            make_mergers(i,j)
+    elif target_1 == 'yeast':
+        make_mergers('yeast_human_mouse', 'rat')
 
-    for single_name in all_names:
-        splt = single_name.split('_', 1)
-        name_target = splt[0]
-        if name_target == 'human':
-            h_trigger = True
-        if len(splt) == 1:
-            name_start = names[0]
-            i_trigger = True
-        else:
-            name_start = names[0]+'_'+splt[1]
 
-        make_mergers(name_start, name_target, i_trigger, h_trigger)
+    # all_names = []
+    # for i in range(3, len(names_true)+1):
+    #     z = itertools.combinations(iterator(names_true), i)
+    #     for j in z:
+    #         d = '_'.join(list(j))
+    #         all_names.append(d)
 
-        i_trigger = False
-        h_trigger = False
+    # for single_name in all_names:
+    #     splt = single_name.split('_', 1)
+    #     name_target = splt[0]
+    #     if name_target == 'human':
+    #         h_trigger = True
+    #     if len(splt) == 1:
+    #         name_start = names[0]
+    #         i_trigger = True
+    #     else:
+    #         name_start = names[0]+'_'+splt[1]
+    #     print(name_start, name_target)
+    #     # make_mergers(name_start, name_target, i_trigger, h_trigger)
+
+    #     i_trigger = False
+    #     h_trigger = False
 
 
 
