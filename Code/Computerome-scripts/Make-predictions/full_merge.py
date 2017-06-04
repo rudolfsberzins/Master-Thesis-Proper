@@ -31,20 +31,20 @@ def full_merger(model_path, sen_pkl_path, model_name):
     #'Kill' the model
     model.init_sims(replace=False)
 
-    model_name = 'Results/' + model_name
+    model_name = 'Results/models/' + model_name
     model.save(model_name)
 
     print('Done with ', model_name)
 
 def make_mergers(name_start, name_target, init_trigger=False, human_trigger=False):
     if init_trigger:
-        path_to_strict_model = 'Results/'+name_start+'_strict_w2v_model'
-        path_to_gen_model = 'Results/'+name_start+'_gen_w2v_model'
-        path_to_be_model = 'Results/'+name_start+'_be_w2v_model'
+        path_to_strict_model = 'Results/models/'+name_start+'_strict_w2v_model'
+        path_to_gen_model = 'Results/models/'+name_start+'_gen_w2v_model'
+        path_to_be_model = 'Results/models/'+name_start+'_be_w2v_model'
     else:
-        path_to_strict_model = 'Results/'+name_start+'_full_merger_SR_model'
-        path_to_gen_model = 'Results/'+name_start+'_full_merger_GEN_model'
-        path_to_be_model = 'Results/'+name_start+'_full_merger_BE_model'
+        path_to_strict_model = 'Results/models/'+name_start+'_full_merger_SR_model'
+        path_to_gen_model = 'Results/models/'+name_start+'_full_merger_GEN_model'
+        path_to_be_model = 'Results/models/'+name_start+'_full_merger_BE_model'
 
     if human_trigger:
         path_to_strict_data = '../'+name_target+'/computerome_human_runs/Results/'+name_target+'mentions_strict_real.pkl'
@@ -59,15 +59,15 @@ def make_mergers(name_start, name_target, init_trigger=False, human_trigger=Fals
 
     full_merger(path_to_strict_model,
                 path_to_strict_data,
-                name_of_results+'full_merger_SR_model')
+                name_of_results+'_full_merger_SR_model')
 
     full_merger(path_to_gen_model,
                 path_to_gen_data,
-                name_of_results+'full_merger_GEN_model')
+                name_of_results+'_full_merger_GEN_model')
 
     full_merger(path_to_be_model,
                 path_to_be_data,
-                name_of_results+'full_merger_BE_model')
+                name_of_results+'_full_merger_BE_model')
 
 def iterator(lst):
     for i in lst:
