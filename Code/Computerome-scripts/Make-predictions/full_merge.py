@@ -52,9 +52,9 @@ def make_mergers(name_start, name_target, init_trigger=False, human_trigger=Fals
         path_to_gen_data = '../'+name_target+'/computerome_human_runs/Results/'+name_target+'_mentions_gen_real.pkl'
         path_to_be_data = '../'+name_target+'/computerome_human_runs/Results/'+name_target+'_mentions_be_real.pkl'
     else:
-        path_to_strict_data = '../'+name_target+'/Results/'+name_target+'mentions_strict_real.pkl'
-        path_to_gen_data = '../'+name_target+'/Results/'+name_target+'mentions_gen_real.pkl'
-        path_to_be_data = '../'+name_target+'/Results/'+name_target+'mentions_be_real.pkl'
+        path_to_strict_data = '../'+name_target+'/Results/'+name_target+'_mentions_strict_real.pkl'
+        path_to_gen_data = '../'+name_target+'/Results/'+name_target+'_mentions_gen_real.pkl'
+        path_to_be_data = '../'+name_target+'/Results/'+name_target+'_mentions_be_real.pkl'
 
     name_of_results = name_start+'_'+name_target
 
