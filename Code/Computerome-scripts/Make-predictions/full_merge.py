@@ -103,8 +103,8 @@ def main():
                 i_trigger = True
             else:
                 name_start = names[0]+'_'+splt[1]
-            print(name_start, name_target)
-            # make_mergers(name_start, name_target, i_trigger, h_trigger)
+            # print(name_start, name_target)
+            make_mergers(name_start, name_target, i_trigger, h_trigger)
 
             i_trigger = False
             h_trigger = False
