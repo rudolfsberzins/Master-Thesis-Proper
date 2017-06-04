@@ -38,18 +38,18 @@ def full_merger(model_path, sen_pkl_path, model_name):
 
 def make_mergers(name_start, name_target, init_trigger=False, human_trigger=False):
     if init_trigger:
-        path_to_strict_model = 'Results/models/'+name_start+'_strict_w2v_model'
-        path_to_gen_model = 'Results/models/'+name_start+'_gen_w2v_model'
-        path_to_be_model = 'Results/models/'+name_start+'_be_w2v_model'
+        path_to_strict_model = 'Results/models/'+name_start+'__strict_w2v_model'
+        path_to_gen_model = 'Results/models/'+name_start+'__gen_w2v_model'
+        path_to_be_model = 'Results/models/'+name_start+'__be_w2v_model'
     else:
         path_to_strict_model = 'Results/models/'+name_start+'_full_merger_SR_model'
         path_to_gen_model = 'Results/models/'+name_start+'_full_merger_GEN_model'
         path_to_be_model = 'Results/models/'+name_start+'_full_merger_BE_model'
 
     if human_trigger:
-        path_to_strict_data = '../'+name_target+'/computerome_human_runs/Results/'+name_target+'mentions_strict_real.pkl'
-        path_to_gen_data = '../'+name_target+'/computerome_human_runs/Results/'+name_target+'mentions_gen_real.pkl'
-        path_to_be_data = '../'+name_target+'/computerome_human_runs/Results/'+name_target+'mentions_be_real.pkl'
+        path_to_strict_data = '../'+name_target+'/computerome_human_runs/Results/'+name_target+'_mentions_strict_real.pkl'
+        path_to_gen_data = '../'+name_target+'/computerome_human_runs/Results/'+name_target+'_mentions_gen_real.pkl'
+        path_to_be_data = '../'+name_target+'/computerome_human_runs/Results/'+name_target+'_mentions_be_real.pkl'
     else:
         path_to_strict_data = '../'+name_target+'/Results/'+name_target+'mentions_strict_real.pkl'
         path_to_gen_data = '../'+name_target+'/Results/'+name_target+'mentions_gen_real.pkl'
