@@ -84,7 +84,7 @@ def main():
 
     i_trigger = False
     h_trigger = False
-    if target_1 == 'drosophila':
+    if folder_name == 'drosophila':
         names_start = ['drosophila_mouse_rat', 'drosophila_human_rat',
                        'drosophila_human_mouse', 'drosophila_human_mouse',
                        'drosophila_human_mouse_rat']
@@ -92,7 +92,7 @@ def main():
 
         for i,j in zip(names_start, names_target):
             make_mergers(i,j)
-    elif target_1 == 'yeast':
+    elif folder_name == 'yeast':
         make_mergers('yeast_human_mouse', 'rat')
 
 
