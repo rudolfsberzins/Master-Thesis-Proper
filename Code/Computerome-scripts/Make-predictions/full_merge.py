@@ -30,7 +30,7 @@ def full_merger(model_path, sen_pkl_path, model_name):
                 total_examples=sum([len(i) for i in sentence_yielder(sen_pkl_path)]))
 
     #'Kill' the model
-    model.init_sims(replace=False)
+    # model.init_sims(replace=True)
 
     model_name = 'Results/models/' + model_name
     model.save(model_name)
@@ -39,9 +39,9 @@ def full_merger(model_path, sen_pkl_path, model_name):
 
 def make_mergers(name_start, name_target, init_trigger=False, human_trigger=False):
     if init_trigger:
-        path_to_strict_model = 'Results/models/'+name_start+'_strict__model'
-        path_to_gen_model = 'Results/models/'+name_start+'_gen__model'
-        path_to_be_model = 'Results/models/'+name_start+'_be__model'
+        path_to_strict_model = 'Results/models/'+name_start+'_strict_model'
+        path_to_gen_model = 'Results/models/'+name_start+'_gen_model'
+        path_to_be_model = 'Results/models/'+name_start+'_be_model'
     else:
         path_to_strict_model = 'Results/models/'+name_start+'_full_merger_SR_model'
         path_to_gen_model = 'Results/models/'+name_start+'_full_merger_GEN_model'
@@ -84,40 +84,40 @@ def main():
 
     i_trigger = False
     h_trigger = False
-    if folder_name == 'drosophila':
-        names_start = ['drosophila_mouse_rat', 'drosophila_human_rat',
-                       'drosophila_human_mouse', 'drosophila_human_mouse',
-                       'drosophila_human_mouse_rat']
-        names_target = ['yeast', 'yeast', 'yeast', 'rat', 'yeast']
+    # if folder_name == 'drosophila':
+    #     names_start = ['drosophila_mouse_rat', 'drosophila_human_rat',
+    #                    'drosophila_human_mouse', 'drosophila_human_mouse',
+    #                    'drosophila_human_mouse_rat']
+    #     names_target = ['yeast', 'yeast', 'yeast', 'rat', 'yeast']
 
-        for i,j in zip(names_start, names_target):
-            make_mergers(i,j)
-    elif folder_name == 'yeast':
-        make_mergers('yeast_human_mouse', 'rat')
+    #     for i,j in zip(names_start, names_target):
+    #         make_mergers(i,j)
+    # elif folder_name == 'yeast':
+    #     make_mergers('yeast_human_mouse', 'rat')
 
 
-    # all_names = []
-    # for i in range(3, len(names_true)+1):
-    #     z = itertools.combinations(iterator(names_true), i)
-    #     for j in z:
-    #         d = '_'.join(list(j))
-    #         all_names.append(d)
+    all_names = []
+    for i in range(1, len(names_true)+1):
+        z = itertools.combinations(iterator(names_true), i)
+        for j in z:
+            d = '_'.join(list(j))
+            all_names.append(d)
 
-    # for single_name in all_names:
-    #     splt = single_name.split('_', 1)
-    #     name_target = splt[0]
-    #     if name_target == 'human':
-    #         h_trigger = True
-    #     if len(splt) == 1:
-    #         name_start = names[0]
-    #         i_trigger = True
-    #     else:
-    #         name_start = names[0]+'_'+splt[1]
-    #     print(name_start, name_target)
-    #     # make_mergers(name_start, name_target, i_trigger, h_trigger)
+    for single_name in all_names:
+        splt = single_name.split('_', 1)
+        name_target = splt[0]
+        if name_target == 'human':
+            h_trigger = True
+        if len(splt) == 1:
+            name_start = names[0]
+            i_trigger = True
+        else:
+            name_start = names[0]+'_'+splt[1]
+        print(name_start, name_target)
+        # make_mergers(name_start, name_target, i_trigger, h_trigger)
 
-    #     i_trigger = False
-    #     h_trigger = False
+        i_trigger = False
+        h_trigger = False
 
 
 

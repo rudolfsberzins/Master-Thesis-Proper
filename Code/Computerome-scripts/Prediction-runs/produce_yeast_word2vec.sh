@@ -28,6 +28,6 @@ module purge
 module load tools
 module load tools anaconda3/2.2.0
 
-python dynamic_w2v_model.py 'Results/yeast_mentions_strict_real.pkl' 'yeast_strict_w2v_model'
-python dynamic_w2v_model.py 'Results/yeast_mentions_gen_real.pkl' 'yeast_gen_w2v_model'
-python dynamic_w2v_model.py 'Results/yeast_mentions_be_real.pkl' 'yeast_be_w2v_model'
+python dynamic_w2v_model.py 'Results/yeast_mentions_strict_real.pkl' 'yeast_strict_model'
+python dynamic_w2v_model.py 'Results/yeast_mentions_gen_real.pkl' 'yeast_gen_model'
+python dynamic_w2v_model.py 'Results/yeast_mentions_be_real.pkl' 'yeast_be_model'
