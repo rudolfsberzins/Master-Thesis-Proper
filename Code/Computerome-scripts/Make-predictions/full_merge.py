@@ -108,7 +108,7 @@ def main():
 
             i_trigger = False
             h_trigger = False
-    except ValueError:
+    except FileNotFoundError:
         if folder_name == 'drosophila':
             names_start = ['drosophila_mouse_rat', 'drosophila_human_rat',
                            'drosophila_human_mouse', 'drosophila_human_mouse',
