@@ -89,13 +89,13 @@ def run(organism, strict_model, gen_model, be_model, model_name):
         auc_score = []
         report = []
 
-        for entry, model_name in zip(strict_final_list, ['SR '+str(seed), 'GEN '+str(seed), 'BE '+str(seed)]):
+        for entry, name_model in zip(strict_final_list, ['SR '+str(seed), 'GEN '+str(seed), 'BE '+str(seed)]):
             accuracy_norm, auc_score_norm, pred_labels_norm, probs_norm, class_report_norm  = pred.XGB_modelfit(xgb_clf,
                                                                                                        entry[0],
                                                                                                        entry[2],
                                                                                                        entry[1],
                                                                                                        entry[3],
-                                                                                                       model_name)
+                                                                                                       name_model)
             fpr_norm, tpr_norm, _ = roc_curve(entry[3], probs_norm)
 
             accuracy.append([accuracy_norm])
