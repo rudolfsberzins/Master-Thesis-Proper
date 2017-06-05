@@ -129,3 +129,6 @@ def main():
 
     run(organism, strict_model, gen_model, be_model, model_name)
 
+if __name__ == '__main__':
+    main()
+
