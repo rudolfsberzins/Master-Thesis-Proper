@@ -31,6 +31,8 @@ def open_files(organism):
                                                                random_state=seed,
                                                                test_set_prop=0.1)
 
+    return strict, gen, be
+
 def run(organism, strict_model, gen_model, be_model, model_name):
     name_of_result = organism
     xgb_clf = XGBClassifier(seed=24)
