@@ -13,7 +13,16 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.feature_selection import SelectFromModel
 from sklearn import metrics
+import os
 
+if not os.path.isdir('Results/train_test/'):
+    os.makedirs('Results/train_test/')
+if not os.path.isdir('Results/models/'):
+    os.makedirs('Results/models/')
+if not os.path.isdir('Results/result_list/'):
+    os.makedirs('Results/result_list/')
+if not os.path.isdir('Results/metrics/'):
+    os.makedirs('Results/metrics/')
 
 def manual_train_test_split(dataset, name_for_sets, random_state=8,
                             test_set_prop=0.1):
@@ -51,10 +60,10 @@ def manual_train_test_split(dataset, name_for_sets, random_state=8,
 
     labels_train, labels_test = fr.produce_labels(train, test)
 
-    pickle.dump(train, open('Results/' + name_for_sets + '_train_data.pkl', 'wb'))
-    pickle.dump(test, open('Results/' + name_for_sets + '_test_data.pkl', 'wb'))
-    pickle.dump(labels_train, open('Results/' + name_for_sets + '_train_labels.pkl', 'wb'))
-    pickle.dump(labels_test, open('Results/' + name_for_sets + '_test_labels.pkl', 'wb'))
+    pickle.dump(train, open('Results/train_test/' + name_for_sets + '_train_data.pkl', 'wb'))
+    pickle.dump(test, open('Results/train_test/' + name_for_sets + '_test_data.pkl', 'wb'))
+    pickle.dump(labels_train, open('Results/train_test/' + name_for_sets + '_train_labels.pkl', 'wb'))
+    pickle.dump(labels_test, open('Results/train_test/' + name_for_sets + '_test_labels.pkl', 'wb'))
 
     return train, test, labels_train, labels_test
 
@@ -101,7 +110,7 @@ def make_w2v_model(dataset, name_for_model, model_features=None):
     # init_sims will make the model much more memory-efficient.
     model.init_sims(replace=False)
 
-    model_name = 'Results/' + name_for_model + '_model'
+    model_name = 'Results/models/' + name_for_model + '_model'
 
     model.save(model_name)
 
@@ -348,14 +357,14 @@ def make_models(init_dataset, dataset_name,
                        w2v_train_vecs, w2v_test_vecs,
                        labels_train, labels_test]
 
-        pickle.dump(result_list, open('Results/' + dataset_name + 'w_BOW_results_list.pkl', 'wb'))
+        pickle.dump(result_list, open('Results/result_list/' + dataset_name + 'w_BOW_results_list.pkl', 'wb'))
     else:
         w2v_train_vecs, w2v_test_vecs = word_2_vec_feat_vecs(train_data, test_data, w2v_model)
 
         result_list = [w2v_train_vecs, w2v_test_vecs,
                        labels_train, labels_test]
 
-        pickle.dump(result_list, open('Results/' + dataset_name + 'no_BOW_results_list.pkl', 'wb'))
+        pickle.dump(result_list, open('Results/result_list/' + dataset_name + '_no_BOW_results_list.pkl', 'wb'))
 
     return result_list
 
