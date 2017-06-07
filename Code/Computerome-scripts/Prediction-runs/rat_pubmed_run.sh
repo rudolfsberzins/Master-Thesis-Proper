@@ -28,7 +28,7 @@ module purge
 module load tools
 module load tools anaconda3/2.2.0
 
-python pubmed_model.py rat ../pubmed/final_word2vec_model pubmed
+python pubmed_model.py rat ../pubmed/Results/final_word2vec_model pubmed
 
 
 

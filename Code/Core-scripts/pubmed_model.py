@@ -97,7 +97,7 @@ def main():
     if not os.path.isdir('Results/'+model_name+'/metrics/'):
         os.makedirs('Results/'+model_name+'/metrics/')
 
-    run(organism, strict_model, gen_model, be_model, model_name)
+    run(organism, w2v_model, model_name)
 
 if __name__ == '__main__':
     main()
