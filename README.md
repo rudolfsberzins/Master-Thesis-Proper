@@ -74,8 +74,8 @@ After the initial datasets are procuded, one can use functions in prediction.py 
     #Also performs make_w2v_model, but can take a pre-made word2vec model as argument, thus allowing the use of premade models,  
     #outputs a list  - [train_vecs, test_vecs, train_labels, test_labels]
     
-    pred.XGB_classifier(_parameters_) 
-    #Performs classification using XGBoost, outputs the error and class porbabilites
+    pred.XGB_modelfit(_parameters_) 
+    #Performs classification using XGBoost, outputs the accuracy, auc_score, predicted_labels, class probabilities and a report
 
 -RB
 
