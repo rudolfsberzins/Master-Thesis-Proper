@@ -36,7 +36,8 @@ def run(seq_tuple, model_name):
         data_name = 'Results/strict_data/{}_mentions_strict_real.pkl'.format(name)
         data = pickle.load(open(data_name, 'rb'))
         big_list.append(data)
-    test_org = 'Results/strict_data/{}_mentions_strict_real.pkl'.format(seq_tuple[1])
+    test_org_name = 'Results/strict_data/{}_mentions_strict_real.pkl'.format(seq_tuple[1])
+    test_org = pickle.load(open(test_org_name, 'rb'))
 
     train_orgs = merge_dicts(big_list[0], big_list[1], big_list[2], big_list[3])
 
