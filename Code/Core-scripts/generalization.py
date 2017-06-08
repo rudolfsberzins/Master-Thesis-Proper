@@ -43,7 +43,7 @@ def run(seq_tuple, model_name):
 
     train_labels, test_labels = fr.produce_labels(train_orgs, test_org)
 
-    w2v_train_vecs, w2v_test_vecs = word_2_vec_feat_vecs(train_orgs, test_org, w2v_model)
+    w2v_train_vecs, w2v_test_vecs = pred.word_2_vec_feat_vecs(train_orgs, test_org, w2v_model)
 
     result_list = [w2v_train_vecs, w2v_test_vecs,
                    train_labels, test_labels]
