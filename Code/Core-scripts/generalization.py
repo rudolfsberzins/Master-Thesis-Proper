@@ -38,7 +38,7 @@ def run(seq_tuple, model_name):
         big_list.append(data)
     test_org = 'Results/strict_data/{}_mentions_strict_real.pkl'.format(seq_tuple[1])
 
-    train_orgs = merge_dicts(big_list)
+    train_orgs = merge_dicts(big_list[0], big_list[1], big_list[2], big_list[3])
 
     train_labels, test_labels = fr.produce_labels(train_orgs, test_org)
 
