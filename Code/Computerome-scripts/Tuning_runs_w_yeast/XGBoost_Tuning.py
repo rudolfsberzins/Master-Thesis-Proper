@@ -1,5 +1,5 @@
-# import sys
-# sys.path.insert(0, '../../Core-scripts/')
+import sys
+sys.path.insert(0, '../../Core-scripts/')
 
 import pickle
 import os
@@ -32,7 +32,7 @@ def main():
         'colsample_bytree': [i/10.0 for i in range(6, 10)],
     }
     print('Starting GridSearchCV')
-    gsearch = GridSearchCV(estimator=XGBClassifier(seed=24, n_jobs=multiprocessing.cpu_count()),
+    gsearch = GridSearchCV(estimator=XGBClassifier(seed=24),
                            param_grid=parameters,
                            scoring='roc_auc',
                            iid=True,
