@@ -15,6 +15,7 @@ from sys import argv
 from xgboost.sklearn import XGBClassifier
 from sklearn import cross_validation, metrics
 from sklearn.grid_search import GridSearchCV
+import multiprocessing
 
 def main():
     _, seed, model = argv
@@ -24,19 +25,18 @@ def main():
     result_list = pickle.load(open(result_list_name, 'rb'))
 
     parameters = {
-        'learning_rate':[0.001, 0.01, 0.1, 0.3],
-        'n_estimators': [100, 200, 500, 1000, 10000],
-        'max_depth': [3, 4, 5, 6, 7],
-        'min_child_weight': [1, 2, 3, 4],
-        'gamma': [i/10.0 for i in range(0, 4)],
-        'subsample': [i/10.0 for i in range(7, 10)],
-        'colsample_bytree': [i/10.0 for i in range(7, 10)],
+        'max_depth': [1, 2, 3, 4, 5, 6],
+        'min_child_weight': [1, 2, 3, 4, 5],
+        'gamma': [i/10.0 for i in range(0, 5)],
+        'subsample': [i/10.0 for i in range(6, 10)],
+        'colsample_bytree': [i/10.0 for i in range(6, 10)],
     }
     print('Starting GridSearchCV')
-    gsearch = GridSearchCV(estimator=XGBClassifier(seed=24),
+    gsearch = GridSearchCV(estimator=XGBClassifier(seed=24, n_jobs=multiprocessing.cpu_count()),
                            param_grid=parameters,
                            scoring='roc_auc',
                            iid=True,
+                           n_jobs=multiprocessing.cpu_count(),
                            cv=3)
     gsearch.fit(result_list[0], result_list[2])
     print('Done with GridSearchCV')
