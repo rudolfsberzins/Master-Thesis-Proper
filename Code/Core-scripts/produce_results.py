@@ -59,7 +59,12 @@ def run(organism):
     w2v_strict = strict_model
     w2v_gen = gen_model
     w2v_be = be_model
-    xgb_clf = XGBClassifier(seed=24)
+    xgb_clf = XGBClassifier(subsample=0.7,
+                            colsample_bytree=0.8,
+                            gamma=0,
+                            min_child_weight=3,
+                            max_depth=2,
+                            seed=24)
     start = time.time()
     for seed in random_seeds:
         strict_list_SR = pred.make_models(strict_data,

@@ -231,7 +231,7 @@ def word_2_vec_feat_vecs(data_train, data_test, model, feature_count=800):
 
     return w2v_train_transf, w2v_test_transf
 
-def XGB_modelfit(alg, train_vecs, train_labels, test_vecs, test_labels, w2v_model_type, useTrainCV=True, cv_folds=5, feature_selection=False):
+def XGB_modelfit(alg, train_vecs, train_labels, test_vecs, test_labels, w2v_model_type, useTrainCV=False, cv_folds=5, feature_selection=False):
 
     if feature_selection:
         clf = ExtraTreesClassifier(n_estimators=400)
