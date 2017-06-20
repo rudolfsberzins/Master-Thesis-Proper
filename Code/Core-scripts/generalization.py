@@ -29,7 +29,12 @@ def merge_dicts(*dict_args):
 
 def run(seq_tuple, model_name):
     name_of_results = model_name
-    xgb_clf = XGBClassifier(seed=24)
+    xgb_clf = XGBClassifier(subsample=0.7,
+                            colsample_bytree=0.8,
+                            gamma=0,
+                            min_child_weight=3,
+                            max_depth=2,
+                            seed=24)
     big_list = []
     w2v_model = word2vec.Word2Vec.load('Results/models/final_word2vec_model')
     for name in seq_tuple[0]:
