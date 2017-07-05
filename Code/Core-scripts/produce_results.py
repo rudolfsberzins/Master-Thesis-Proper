@@ -51,6 +51,9 @@ def run(organism):
     strict = pickle.load(open('Results/'+organism+'_mentions_strict_real.pkl', 'rb'))
     gen = pickle.load(open('Results/'+organism+'_mentions_gen_real.pkl', 'rb'))
     be = pickle.load(open('Results/'+organism+'_mentions_be_real.pkl', 'rb'))
+    strict = fr.convert_to_ordered(strict)
+    gen = fr.convert_to_ordered(gen)
+    be = fr.convert_to_ordered(be)
     strict_model = pred.make_w2v_model(strict, organism+'_strict')
     gen_model = pred.make_w2v_model(gen, organism+'_gen')
     be_model = pred.make_w2v_model(be, organism+'_be')
@@ -59,12 +62,7 @@ def run(organism):
     w2v_strict = strict_model
     w2v_gen = gen_model
     w2v_be = be_model
-    xgb_clf = XGBClassifier(subsample=0.7,
-                            colsample_bytree=0.8,
-                            gamma=0,
-                            min_child_weight=3,
-                            max_depth=2,
-                            seed=24)
+    xgb_clf = XGBClassifier(seed=24)
     start = time.time()
     for seed in random_seeds:
         strict_list_SR = pred.make_models(strict_data,

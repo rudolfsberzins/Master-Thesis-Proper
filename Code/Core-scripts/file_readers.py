@@ -1,6 +1,7 @@
 import re
 import pandas as pd
 from nltk.corpus import stopwords
+import collections
 
 
 
@@ -137,5 +138,10 @@ def produce_labels(train_dict, test_dict):
         labels_test.append(val[-1])
 
     return labels_train, labels_test
+
+def convert_to_ordered(dict_file):
+    ordered_dict = collections.OrderedDict(dict_file)
+
+    return ordered_dict
 
 

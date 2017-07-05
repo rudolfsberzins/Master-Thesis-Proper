@@ -14,6 +14,7 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.feature_selection import SelectFromModel
 from sklearn import metrics
 import os
+import collections
 
 if not os.path.isdir('Results/train_test/'):
     os.makedirs('Results/train_test/')
@@ -47,8 +48,8 @@ def manual_train_test_split(dataset, name_for_sets, random_state=8,
 
     test_prots = full_protein_set - train_prots
 
-    train = {}
-    test = {}
+    train = collections.OrderedDict()
+    test = collections.OrderedDict()
     for key, value in dataset.items():
         val = value[0]
         if val[1] in train_prots and val[3] in train_prots:
@@ -329,7 +330,7 @@ def get_accuracy(l_new, l_te):
 
 
 
-def make_models(init_dataset, dataset_name,
+def make_models(init_dataset, dataset_name, feature_count=800,
                 prev_model=None, ran_state=8, BOW=False):
     """Combines all function in a single call
 
@@ -347,11 +348,14 @@ def make_models(init_dataset, dataset_name,
     else:
         w2v_model = make_w2v_model(init_dataset, dataset_name)
 
+
+
     train_data, test_data, labels_train, labels_test = manual_train_test_split(init_dataset, dataset_name, random_state=ran_state)
 
     if BOW:
         bow_train_vecs, bow_test_vecs = bag_of_words_feat_vecs(train_data, test_data)
-        w2v_train_vecs, w2v_test_vecs = word_2_vec_feat_vecs(train_data, test_data, w2v_model)
+        w2v_train_vecs, w2v_test_vecs = word_2_vec_feat_vecs(train_data, test_data, w2v_model,
+                                                             feature_count=feature_count)
 
         result_list = [bow_train_vecs, bow_test_vecs,
                        w2v_train_vecs, w2v_test_vecs,
@@ -359,7 +363,8 @@ def make_models(init_dataset, dataset_name,
 
         pickle.dump(result_list, open('Results/result_list/' + dataset_name + 'w_BOW_results_list.pkl', 'wb'))
     else:
-        w2v_train_vecs, w2v_test_vecs = word_2_vec_feat_vecs(train_data, test_data, w2v_model)
+        w2v_train_vecs, w2v_test_vecs = word_2_vec_feat_vecs(train_data, test_data, w2v_model,
+                                                             feature_count=feature_count)
 
         result_list = [w2v_train_vecs, w2v_test_vecs,
                        labels_train, labels_test]
