@@ -16,13 +16,14 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.feature_selection import SelectFromModel
 from sys import argv
 import time
+import collections
 
 def merge_dicts(*dict_args):
     """
     Given any number of dicts, shallow copy and merge into a new dict,
     precedence goes to key value pairs in latter dicts.
     """
-    result = {}
+    result = collections.OrderedDict()
     for dictionary in dict_args:
         result.update(dictionary)
     return result
@@ -40,9 +41,11 @@ def run(seq_tuple, model_name):
     for name in seq_tuple[0]:
         data_name = 'Results/strict_data/{}_mentions_strict_real.pkl'.format(name)
         data = pickle.load(open(data_name, 'rb'))
+        data = collections.OrderedDict(data)
         big_list.append(data)
     test_org_name = 'Results/strict_data/{}_mentions_strict_real.pkl'.format(seq_tuple[1])
     test_org = pickle.load(open(test_org_name, 'rb'))
+    test_org = collections.OrderedDict(test_org)
 
     train_orgs = merge_dicts(big_list[0], big_list[1], big_list[2], big_list[3])
 
